@@ -19,7 +19,7 @@ namespace Modules.Auth.Application.Users.Commands.Delete
 
         public async Task<ErrorOr<UserId>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            var userId = await _userRepository.DeleteAsync(request.UserId, cancellationToken);
+            var userId = await _userRepository.DeleteAsync(new UserId(request.UserId), cancellationToken);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

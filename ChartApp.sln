@@ -21,7 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2B46F909-C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Auth.Infrastructure", "Modules.Auth.Infrastructure\Modules.Auth.Infrastructure.csproj", "{1F528845-B534-4C86-987B-BB3055405FE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKhernel", "SharedKhernel\SharedKhernel.csproj", "{06EEC49B-25F2-49A5-B6E7-66E3C515F72B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKhernel", "SharedKhernel\SharedKhernel.csproj", "{06EEC49B-25F2-49A5-B6E7-66E3C515F72B}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4A27573E-DD44-4C6E-BEAB-DEB4E57CC101}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{06EEC49B-25F2-49A5-B6E7-66E3C515F72B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06EEC49B-25F2-49A5-B6E7-66E3C515F72B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06EEC49B-25F2-49A5-B6E7-66E3C515F72B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A27573E-DD44-4C6E-BEAB-DEB4E57CC101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A27573E-DD44-4C6E-BEAB-DEB4E57CC101}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A27573E-DD44-4C6E-BEAB-DEB4E57CC101}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A27573E-DD44-4C6E-BEAB-DEB4E57CC101}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

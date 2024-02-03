@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Modules.Auth.Domain.Primitives;
 using Modules.Auth.Domain.Roles;
+using Modules.Auth.Domain.UserRoles;
 using Modules.Auth.Domain.Users;
 using Modules.Auth.Infrastructure.Interceptors;
 
@@ -33,6 +34,9 @@ namespace Modules.Auth.Infrastructure.Persistence.Data
 
 
         public DbSet<User> Users => Set<User>();
+
         public DbSet<Role> Roles => Set<Role>();
+
+        public DbSet<UserRole> UserRoles => Set<UserRole>();
     }
 }

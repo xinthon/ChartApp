@@ -37,9 +37,9 @@ namespace Modules.Auth.Domain.Users
             return user;
         }
 
-        public static User Update(UserId userId, Name username, Email email, Password password)
+        public static User Update(UserId userId, Name username, Email email)
         {
-            var user = new User(userId) { Username = username, Email = email, Password = password };
+            var user = new User(userId) { Username = username, Email = email };
 
             user.AddDomainEvent(new UserUpdatedDomainEvent(userId));
 

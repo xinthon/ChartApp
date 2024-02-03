@@ -34,7 +34,8 @@ namespace Modules.Auth.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password_PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Password_PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -43,7 +44,7 @@ namespace Modules.Auth.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRole",
+                name: "UserRoles",
                 schema: "auth",
                 columns: table => new
                 {
@@ -52,16 +53,16 @@ namespace Modules.Auth.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRole", x => new { x.RoleId, x.UserId });
+                    table.PrimaryKey("PK_UserRoles", x => new { x.RoleId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_UserRole_Roles_RoleId",
+                        name: "FK_UserRoles_Roles_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "auth",
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserRole_Users_UserId",
+                        name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
                         principalSchema: "auth",
                         principalTable: "Users",
@@ -70,9 +71,9 @@ namespace Modules.Auth.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRole_UserId",
+                name: "IX_UserRoles_UserId",
                 schema: "auth",
-                table: "UserRole",
+                table: "UserRoles",
                 column: "UserId");
         }
 
@@ -80,7 +81,7 @@ namespace Modules.Auth.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserRole",
+                name: "UserRoles",
                 schema: "auth");
 
             migrationBuilder.DropTable(

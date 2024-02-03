@@ -6,14 +6,14 @@ namespace Modules.Auth.Application.Users.Commands.Update
 {
     public class UpdateUserCommand : IRequest<ErrorOr<UserId>>
     {
-        public UpdateUserCommand(UserId userId, string username, string email, string password)
+        public UpdateUserCommand(Guid userId, string username, string email)
         {
             UserId = userId;
             Username = username;
             Email = email;
-            Password = password;
         }
-        public UserId UserId { get; private set; }
+        public Guid UserId { get; private set; }
+
         public string Username { get; private set; }
 
         public string Email { get; private set; }

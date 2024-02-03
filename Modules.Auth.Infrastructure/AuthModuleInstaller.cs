@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Modules.Auth.Application;
 using Modules.Auth.Application.Abstractions;
 using Modules.Auth.Application.Abstractions.Repositories;
+using Modules.Auth.Infrastructure.Authentications;
 using Modules.Auth.Infrastructure.Interceptors;
 using Modules.Auth.Infrastructure.Persistence.Data;
 using Modules.Auth.Infrastructure.Repositories;
@@ -16,7 +17,6 @@ public class AuthModuleInstaller : IModuleInstaller
 {
     public void InitializeModule(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddApplication(configuration);
         services.AddApplication(configuration);
 
         services.AddDbContext<AuthDbContext>(options =>
@@ -31,6 +31,7 @@ public class AuthModuleInstaller : IModuleInstaller
         services.AddSingleton<PublishDomainEventInterceptor>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IPasswordProvider, PasswordProvider>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
     }

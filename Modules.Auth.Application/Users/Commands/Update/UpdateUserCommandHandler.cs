@@ -20,12 +20,13 @@ namespace Modules.Auth.Application.Users.Commands.Update
 
         public async Task<ErrorOr<UserId>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
+
             var userId = await _userRepository.UpdateAsync(
                 User.Update(
-                    request.UserId, 
+                    new UserId(request.UserId), 
                     Name.Create(request.Username), 
-                    Email.Create(request.Email), 
-                    request.Password),
+                    Email.Create(request.Email)),
+
                 cancellationToken);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);

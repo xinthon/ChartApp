@@ -49,9 +49,7 @@ namespace Modules.Auth.Infrastructure.Repositories
             await _dbContext.Users.Where(u => u.Id == user.Id)
                 .ExecuteUpdateAsync(u => u
                     .SetProperty(p => p.Username, user.Username)
-                    .SetProperty(p => p.Email, user.Email)
-                    .SetProperty(p => p.Password, user.Password)
-                    .SetProperty(p => p.DomainEvents, user.DomainEvents));
+                    .SetProperty(p => p.Email, user.Email));
 
             return user.Id;
         }

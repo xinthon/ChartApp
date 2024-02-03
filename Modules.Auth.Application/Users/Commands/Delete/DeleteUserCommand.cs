@@ -6,11 +6,11 @@ namespace Modules.Auth.Application.Users.Commands.Delete
 {
     public class DeleteUserCommand : IRequest<ErrorOr<UserId>>
     {
-        public DeleteUserCommand(UserId userId)
+        public DeleteUserCommand(Guid userId)
         {
             UserId = userId;
         }
 
-        public UserId UserId { get; private set; }
+        public Guid UserId { get; private set; }
     }
 }

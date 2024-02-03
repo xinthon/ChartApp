@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Modules.Auth.Domain.Roles;
+using Modules.Auth.Domain.ValueObjects;
 
 namespace Modules.Auth.Infrastructure.Persistence.Configurations
 {
@@ -16,6 +17,7 @@ namespace Modules.Auth.Infrastructure.Persistence.Configurations
                 .HasConversion(p => p.Value, value => new RoleId(value));
 
             builder.Property(x => x.Name)
+                .HasConversion(x => x.Value, value => Name.Create(value))
                 .IsRequired()
                 .HasMaxLength(50);
         }

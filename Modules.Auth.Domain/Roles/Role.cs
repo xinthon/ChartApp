@@ -1,13 +1,14 @@
 ﻿using Modules.Auth.Domain.Primitives;
 using Modules.Auth.Domain.Roles.Events;
 using Modules.Auth.Domain.UserRoles;
+using Modules.Auth.Domain.ValueObjects;
 
 namespace Modules.Auth.Domain.Roles
 {
     public class Role : Entity<RoleId>
     {
         private readonly List<UserRole> _userRoles = new List<UserRole>();
-        private Role(RoleId id, string name) : base(id)
+        private Role(RoleId id, Name name) : base(id)
         {
             Name = name;
         }
@@ -16,11 +17,11 @@ namespace Modules.Auth.Domain.Roles
         {
         }
 
-        public string Name { get; private set; } = string.Empty;
+        public Name Name { get; private set; } = Name.Empty;
 
         public IReadOnlyList<UserRole> UserRoles => _userRoles;
 
-        public static Role Create(string name)
+        public static Role Create(Name name)
         {
             var role = new Role()
             {
@@ -31,7 +32,7 @@ namespace Modules.Auth.Domain.Roles
             return role;
         }
 
-        public static Role Update(RoleId roleId, string name)
+        public static Role Update(RoleId roleId, Name name)
         {
             var role = new Role(roleId, name);
             role.AddDomainEvent(new RoleUpdatedDomainEvent(roleId));

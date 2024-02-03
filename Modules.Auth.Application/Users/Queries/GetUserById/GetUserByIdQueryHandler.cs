@@ -12,7 +12,10 @@ internal class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, Error
 
     public async Task<ErrorOr<UserResponse>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken);
+        var user = await _userRepository.GetByIdAsync(
+            new Domain.Users.UserId(request.UserId), 
+            cancellationToken);
+
         if(user is null)
         {
             return Error.NotFound(nameof(user));
@@ -23,7 +26,7 @@ internal class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, Error
         var userRoles = user.UserRoles.Select(ur => ur.Role!.Name).ToArray();
         foreach(var role in userRoles)
         {
-            userResponse.Roles.Add(role);
+            userResponse.Roles.Add(role.Value);
         }
         return userResponse;
     }

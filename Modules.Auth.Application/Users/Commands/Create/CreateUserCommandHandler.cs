@@ -11,20 +11,25 @@ namespace Modules.Auth.Application.Users.Commands.Create
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPasswordProvider _passwordProvider;
 
-        public CreateUserCommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork)
+        public CreateUserCommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork, IPasswordProvider passwordProvider)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
+            _passwordProvider = passwordProvider;
         }
 
         public async Task<ErrorOr<UserId>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var userId = await _userRepository.CreateAsync(
-                 User.Create( 
+            _passwordProvider.GeneratePassword(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
+
+            var user = User.Create(
                      Name.Create(request.Username),
                      Email.Create(request.Email),
-                     request.Password), cancellationToken);
+                     Password.Create(passwordHash, passwordSalt));
+
+            var userId = await _userRepository.CreateAsync(user, cancellationToken);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

@@ -12,7 +12,7 @@ using Modules.Auth.Infrastructure.Persistence.Data;
 namespace Modules.Auth.Infrastructure.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20240130060536_Init")]
+    [Migration("20240130221654_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -53,7 +53,7 @@ namespace Modules.Auth.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRole", "auth");
+                    b.ToTable("UserRoles", "auth");
                 });
 
             modelBuilder.Entity("Modules.Auth.Domain.Users.User", b =>
@@ -62,11 +62,6 @@ namespace Modules.Auth.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -98,6 +93,33 @@ namespace Modules.Auth.Infrastructure.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Modules.Auth.Domain.Users.User", b =>
+                {
+                    b.OwnsOne("Modules.Auth.Domain.ValueObjects.Password", "Password", b1 =>
+                        {
+                            b1.Property<Guid>("UserId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<byte[]>("PasswordHash")
+                                .IsRequired()
+                                .HasColumnType("varbinary(max)");
+
+                            b1.Property<byte[]>("PasswordSalt")
+                                .IsRequired()
+                                .HasColumnType("varbinary(max)");
+
+                            b1.HasKey("UserId");
+
+                            b1.ToTable("Users", "auth");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+                        });
+
+                    b.Navigation("Password")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Modules.Auth.Domain.Roles.Role", b =>

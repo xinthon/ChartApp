@@ -6,8 +6,8 @@ namespace Modules.Auth.Application.Users.Queries.GetUserById;
 
 public class GetUserByIdQuery : IRequest<ErrorOr<UserResponse>>
 {
-    public UserId UserId { get; }
-    public GetUserByIdQuery(UserId userId)
+    public Guid UserId { get; }
+    public GetUserByIdQuery(Guid userId)
     {
         UserId = userId;
     }

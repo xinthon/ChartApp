@@ -10,8 +10,7 @@ namespace Modules.Auth.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(x => x.Id);
-            builder
-                .Property(x => x.Id)
+            builder.Property(x => x.Id)
                 .HasConversion(id => id.Value, value => new UserId(value));
 
             builder.Property(x => x.Username)
